@@ -44,7 +44,9 @@ describe('ProductController Unit Tests', () => {
       await productController.getAll(req, res);
 
       expect(mockProductService.getAllProducts).toHaveBeenCalledWith(req.query);
-      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ success: true, ...mockResult }));
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ success: true, ...mockResult })
+      );
     });
 
     it('Hata durumunda 500 dönmeli', async () => {

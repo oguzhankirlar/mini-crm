@@ -105,7 +105,7 @@ describe('CustomerService Unit Tests', () => {
       });
       const query = { page: 2, limit: 5 };
       await customerService.getAllCustomers(query);
-      
+
       expect(dbMock.Customer.findAndCountAll).toHaveBeenCalledWith(
         expect.objectContaining({
           limit: 5,
@@ -129,14 +129,14 @@ describe('CustomerService Unit Tests', () => {
 
       dbMock.Customer.findByPk.mockResolvedValue(mockUserInstance);
 
-      const updateData = { 
-        firstName: 'Yeni', 
+      const updateData = {
+        firstName: 'Yeni',
         lastName: 'YeniSoyad',
         phone: '999',
         address: 'YeniAdres',
         city: 'Istanbul'
       };
-      
+
       await customerService.updateProfile(1, updateData);
 
       expect(mockUserInstance.firstName).toBe('Yeni');
@@ -207,7 +207,7 @@ describe('CustomerService Unit Tests', () => {
     it('Veriler eksikse varsayılan değerleri (Misafir, ., Excel Import) kullanmalı', async () => {
       const rows = [{ Email: 'eksik@test.com', Telefon: '5551112233' }];
       setupXlsxMock(rows);
-      
+
       dbMock.Customer.findOne.mockResolvedValue(null);
       dbMock.Customer.create.mockResolvedValue({ id: 1 });
 

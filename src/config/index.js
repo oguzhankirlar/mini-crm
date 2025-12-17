@@ -13,7 +13,9 @@ if (env === 'production') {
 const envFound = dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 if (envFound.error && env === 'development') {
-  console.warn(`UYARI: ${envFile} dosyası bulunamadı! Varsayılanlar veya OS değişkenleri kullanılacak.`);
+  console.warn(
+    `UYARI: ${envFile} dosyası bulunamadı! Varsayılanlar veya OS değişkenleri kullanılacak.`
+  );
 }
 
 if (!process.env.JWT_SECRET) {

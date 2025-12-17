@@ -48,13 +48,13 @@ app.use(`${apiPrefix}`, productRoutes);
 app.use(`${apiPrefix}`, orderRoutes);
 app.use(`${apiPrefix}`, customerRoutes);
 app.use(`${apiPrefix}`, reportRoutes);
-
+// eslint-disable-next-line no-unused-vars
 app.use((req, res, next) => {
   const error = new Error(`Endpoint Bulunamadı: ${req.method} ${req.originalUrl}`);
   error.status = 404;
   next(error);
 });
-
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   logger.error('Sistem Hatası:', {
     message: err.message,
