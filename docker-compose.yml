@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: .
+      target: development
+    container_name: minicrm_api_dev
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.development
+    # environment kısmını sildik çünkü env_file zaten yüklüyor
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - postgres_db
+    command: npm run dev
+
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: minicrm_db
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env.development
+    # environment kısmını sildik, POSTGRES_USER vb. artık dosyadan otomatik okunacak
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+
+volumes:
+  pgdata_dev:
