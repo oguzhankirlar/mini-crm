@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface) {
     await queryInterface.addIndex('customers', ['email'], {
       name: 'idx_customers_email',
       unique: true
@@ -14,7 +14,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.removeIndex('customers', 'idx_customers_email');
     await queryInterface.removeIndex('product_variants', 'idx_product_variants_sku');
   }

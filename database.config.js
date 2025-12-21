@@ -8,20 +8,20 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST === 'localhost' ? 'postgres_db' : process.env.DB_HOST,
     port: process.env.DB_PORT || 5432,
-    dialect: "postgres",
+    dialect: 'postgres'
   },
   test: {
-    username: "ci_user",
-    password: "ci_password",
-    database: "minicrm_test_db",
-    host: "postgres",
-    dialect: "postgres",
+    username: 'ci_user',
+    password: 'ci_password',
+    database: 'minicrm_test_db',
+    host: 'postgres',
+    dialect: 'postgres'
   },
   production: {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    dialect: "postgres",
+    dialect: 'postgres'
   }
 };
