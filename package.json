@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "description": "MiniCRM - Yarım kalmış müşteri ve sipariş yönetim sistemi.",
   "main": "src/server.js",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
     "staging": "cross-env NODE_ENV=staging node src/server.js",
-    "migrate": "sequelize db:migrate",
+    "migrate": "npx sequelize-cli db:migrate",
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "test:coverage": "cross-env NODE_ENV=test jest --coverage --runInBand",
@@ -40,6 +44,7 @@
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
+    "sequelize-cli": "^6.6.2",
     "supertest": "^7.0.0"
   },
   "jest": {
