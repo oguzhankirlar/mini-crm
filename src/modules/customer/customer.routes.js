@@ -57,10 +57,6 @@ router.get('/customers/profile', authenticate, customerController.getProfile);
  */
 router.put('/customers/profile', authenticate, customerController.updateProfile);
 
-// ==========================================
-// 🛡️ ADMIN ENDPOINTS
-// ==========================================
-
 /**
  * @swagger
  * /admin/customers:

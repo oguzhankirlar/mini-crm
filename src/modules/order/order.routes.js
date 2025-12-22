@@ -99,10 +99,6 @@ router.post('/orders', optionalAuth, orderController.create);
  */
 router.get('/orders/track/:uuid', orderController.track);
 
-// ==========================================
-// 👤 CUSTOMER ENDPOINTS
-// ==========================================
-
 /**
  * @swagger
  * /orders/my-orders:
@@ -136,10 +132,6 @@ router.get('/orders/my-orders', authenticate, orderController.myOrders);
  *         description: Detay
  */
 router.get('/orders/:id', authenticate, orderController.getOne);
-
-// ==========================================
-// 🛡️ ADMIN ENDPOINTS
-// ==========================================
 
 /**
  * @swagger

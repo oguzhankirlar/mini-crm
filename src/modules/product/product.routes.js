@@ -10,10 +10,6 @@ const { authenticate, isAdmin } = require('../../middlewares/authMiddleware');
  *   description: Ürün ve Katalog İşlemleri
  */
 
-// ==========================================
-// 🟢 PUBLIC ENDPOINTS
-// ==========================================
-
 /**
  * @swagger
  * /products:
@@ -43,10 +39,6 @@ router.get('/products', productController.getAll);
  *         description: Başarılı
  */
 router.get('/products/:id', productController.getOne);
-
-// ==========================================
-// 🛡️ ADMIN ENDPOINTS
-// ==========================================
 
 /**
  * @swagger
