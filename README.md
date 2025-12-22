@@ -114,3 +114,13 @@ docker-compose exec api npm test
 ```
 
 Bu komut tamamlandığında, terminal ekranında tüm testlerin başarı durumu ve kapsama (coverage) raporu görüntülenecektir.
+
+### Adım 7: Test Kapsam Raporu
+
+Testlerin kodun ne kadarını kapsadığını görmek (Code Coverage) ve detaylı rapor almak için aşağıdaki komutu kullanabilirsiniz:
+
+```bash
+docker-compose exec api npm test -- --coverage
+```
+
+Bu komut, hangi dosyaların test edildiğini, satır ve fonksiyon bazlı kapsama oranlarını gösteren detaylı bir tablo oluşturur.
