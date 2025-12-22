@@ -34,23 +34,23 @@ Terminal veya Komut Satırını (CMD/PowerShell) açın ve aşağıdaki komutlar
 
 ```bash
 git clone [https://github.com/oguzhankirlar/mini-crm.git](https://github.com/oguzhankirlar/mini-crm.git)
-
 cd mini-crm
+```
 
+### Adım 2: Ortam Değişkenleri (.env)
 
 Projenin çalışabilmesi için veritabanı bağlantı bilgileri ve API ayarlarını içeren ortam değişkenlerine ihtiyaç vardır.
 
 Bu proje, Docker ortamı için önceden yapılandırılmış **`.env.development`** dosyası ile birlikte gelmektedir.
 
-
 1. Proje ana dizininde **`.env.development`** dosyasının bulunduğunu kontrol edin.
 2. Varsayılan ayarlar Docker konteynerleri ile uyumlu olacak şekilde hazırlandığı için **herhangi bir değişiklik yapmanıza gerek yoktur**.
 3. Docker Compose çalıştırıldığında bu dosya otomatik olarak kullanılacaktır.
 
-> ℹ️ **Bilgi:**  
+> ℹ️ **Bilgi:**
 > Farklı bir ortam (production vb.) için kurulum yapılacaksa, bu dosya temel alınarak yeni bir `.env` dosyası oluşturulabilir.
 
-Bu adım tamamlandıktan sonra bir sonraki adımda uygulamayı Docker ile başlatabilirsiniz.
+### Adım 3: Uygulamayı Başlatma (Docker)
 
 Ortam değişkenleri ayarlandıktan sonra, uygulamayı ve gerekli tüm altyapıyı Docker kullanarak ayağa kaldırabilirsiniz.
 
@@ -60,59 +60,57 @@ Proje dizinindeyken aşağıdaki komutu çalıştırın:
 
 ```bash
 docker-compose up --build
+```
 
-Uygulama ilk kez başlatıldığında veritabanı boştur.  
-Gerekli tabloların oluşturulması ve örnek (test) verilerinin yüklenmesi için migration ve seed işlemlerinin çalıştırılması gerekir.
+### Adım 4: Veritabanı Kurulumu (Migration & Seed)
+
+Uygulama ilk kez başlatıldığında veritabanı boştur. Gerekli tabloların oluşturulması ve örnek (test) verilerinin yüklenmesi için migration ve seed işlemlerinin çalıştırılması gerekir.
 
 Bu adım için **yeni bir terminal sekmesi** açın (Docker konteynerleri çalışır durumda olmalıdır) ve aşağıdaki komutları sırasıyla çalıştırın.
 
----
-
-Aşağıdaki komut, Sequelize migration dosyalarını çalıştırarak tüm veritabanı tablolarını oluşturur:
+1. Tabloları oluşturmak için (Migration):
 
 ```bash
 docker-compose exec api npx sequelize-cli db:migrate
+```
+2. Örnek verileri ve yönetici hesabını yüklemek için (Seed):
 
-Kurulum ve veritabanı işlemleri tamamlandıktan sonra sistem kullanıma hazır hale gelir.  
-Bu adımda API’nin çalıştığını doğrulayabilir ve test işlemlerine başlayabilirsiniz.
+```bash
+docker-compose exec api npx sequelize-cli db:seed:all
+```
 
----
+### Adım 5: Kullanım ve API Testi
 
-Tüm API uçlarını görüntülemek ve test etmek için tarayıcınızdan aşağıdaki adrese gidin:
+Sistem başarıyla ayağa kalktıktan sonra, API uçlarını görüntülemek ve test etmek için Swagger arayüzünü kullanabilirsiniz.
 
-http://localhost:3000/api-docs
+**Swagger Dokümantasyonu:**
+Tarayıcınızda şu adrese gidin:
+[http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
+**Yönetici Girişi:**
+4. adımda yapılan `seed` işlemi sayesinde aşağıdaki yönetici hesabı otomatik olarak oluşturulmuştur:
 
-Swagger arayüzü üzerinden:
-- Mevcut endpoint’leri görüntüleyebilir
-- İstekleri manuel olarak test edebilir
-- Request ve response yapılarını inceleyebilirsiniz
+* **Email:** `admin@sirket.com`
+* **Şifre:** `123123`
 
----
+**Token Alma ve Yetkilendirme:**
+1. Swagger arayüzünde **`/auth/login`** endpoint’ini açın.
+2. Yukarıdaki email ve şifre bilgileri ile giriş isteği gönderin ("Try it out" > "Execute").
+3. Dönen "Response" içerisindeki **JWT Token** değerini kopyalayın.
+4. Sayfanın en üstündeki **Authorize** butonuna tıklayın, token'ı yapıştırın ve **Authorize** diyerek pencereyi kapatın.
 
-Seed işlemi ile birlikte otomatik olarak oluşturulan yönetici hesabı bilgileri aşağıdadır:
+Artık kilit simgesi kilitli hale gelmiştir ve yetki gerektiren tüm işlemleri test edebilirsiniz.
 
-- **Email:** `admin@sirket.com`
-- **Şifre:** `123123`
+### Adım 6: Testleri Çalıştırma
 
----
+Uygulamanın doğru çalıştığını doğrulamak ve kodun bütünlüğünü test etmek için birim testleri (Unit Tests) çalıştırabilirsiniz.
 
-1. Swagger üzerinden **`/auth/login`** endpoint’ini açın.
-2. Yukarıdaki email ve şifre bilgileri ile giriş yapın.
-3. Dönen response içerisinden **JWT Token**’ı kopyalayın.
-4. Swagger arayüzündeki **Authorize** butonunu kullanarak token’ı ekleyin.
+Bu işlem Docker konteyneri içerisinde gerçekleştirilir, bu yüzden konteynerlerin çalışır durumda olması gerekir.
 
-Bu işlemlerden sonra yetkilendirme gerektiren tüm endpoint’leri test edebilirsiniz.
-
-Bu adım tamamlandıktan sonra testleri çalıştırabilir veya uygulamayı aktif olarak kullanmaya başlayabilirsiniz.
-
-Uygulamanın doğru şekilde çalıştığını doğrulamak ve birim testlerin (Unit Tests) başarılı olduğunu görmek için testleri Docker ortamı içinde çalıştırabilirsiniz.
-
-Bu işlem için API konteynerinin çalışıyor olması gerekmektedir.
-
----
-
-Aşağıdaki komutu terminalde çalıştırın:
+Testleri başlatmak için şu komutu terminalde çalıştırın:
 
 ```bash
 docker-compose exec api npm test
+```
+
+Bu komut tamamlandığında, terminal ekranında tüm testlerin başarı durumu ve kapsama (coverage) raporu görüntülenecektir.
