@@ -18,7 +18,7 @@ Bu proje, başlangıçta %40 seviyesinde bırakılmış, eksik ve hatalı bir m�
 
 ---
 
-## 9.2. Kurulum Rehberi
+## Kurulum Rehberi
 
 Projeyi yerel ortamınızda sorunsuz çalıştırmak için aşağıdaki adımları izleyin.
 
