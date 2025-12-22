@@ -61,10 +61,10 @@ router.post('/register', authController.register);
  *             properties:
  *               email:
  *                 type: string
- *                 default: admin@market.com
+ *                 default: admin@sirket.com
  *               password:
  *                 type: string
- *                 default: '123456'
+ *                 default: '123123'
  *     responses:
  *       200:
  *         description: Başarılı
